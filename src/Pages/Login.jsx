@@ -32,9 +32,7 @@ const LoginDiv = styled.div`
 
  const Page = styled.div`
   display: grid;
-  background: #150529;
-  min-height: 100%;
-  height: fit-content;
+  background: #ffffff;
 p {
   font-family: sans-serif;
   font-size: 20pt;

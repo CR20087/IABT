@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import { Loading2 as Loading } from "./Loading";
+import Loading from "./Loading";
 import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
 
@@ -80,6 +80,7 @@ function LoginForm() {
             <img src="./IABT_logo.png" alt="logo" />
           </Head>
           <div className={isAuthorised} id="center" >
+            <div className="Entry">
               <input 
                 onChange={(e) => setUserName(e.target.value)}
                 type="text"
@@ -87,6 +88,8 @@ function LoginForm() {
                 value={userName}
                 {...register("userName", { required: true, pattern: /^[a-zA-Z0-9]{1,30}$/ })}
               />{errors.userName && <h6>Username is required</h6>}
+              </div>
+              <div className="Entry">
               <input 
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -94,11 +97,11 @@ function LoginForm() {
                 value={password}
                 {...register("password", { required: true,pattern: /^[a-zA-Z0-9 ]{1,30}$/  })}
               />{errors.password && <h6>Password is required</h6>}
+              </div>
           </div>
-          <button type="submit">Login</button>
-          <br></br>
-          <div>{isLoading ? <Loading className="Show"/> : <Loading className="Hide"/> }</div>
-          <FooterText to={"/Register"}>Register</FooterText>
+          <button type="submit">Sign in</button>
+          <FooterText to={"/Register"}>Not Registered? Create an Account</FooterText>
+          <div className="loading">{isLoading ? <Loading className="Show"/> : <Loading className="Hide"/> }</div>
         </Window>      
     )  
   }
@@ -113,24 +116,31 @@ function LoginForm() {
     justify-items: center;
     color: #313131;
     font-weight: 600;
-    transition: 1s;
-    opacity: 0.92;
-    margin-bottom: 2rem;
-    padding: 1rem 0rem 2rem 0rem;
 
     #center {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-evenly;
+
+      .Entry {
+
+      }
     }
 
     h6 {
+      margin: 0rem 0rem 0rem 3rem;
       color: red;
+      font-size: 2rem;
     }
      input {
-      ::placeholder {
-        text-align: center;
-      }
+      padding: 0rem 0rem 0rem 2rem;
+      border-radius:3rem;
+      border: 5px solid black;
+      width: 50rem;
+      height: 7rem;
+      font-size: 4rem;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
      }
     .border-red {
     input {
@@ -141,9 +151,16 @@ function LoginForm() {
       border: 1.5px solid green;
     }}
     button {
-      width: 5rem;
-      justify-self: center;
-      :hover {
+      align-self: center;
+      width: 50rem;
+      height: 7rem;
+      border: 2px solid #2580c7;
+      border-radius: 3rem;
+      background: #2580c7;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 3rem;
+      color: #ffffff;
+      :hover :active {
         background: #313131;
         color: #eedede;
       }
@@ -152,13 +169,18 @@ function LoginForm() {
       visibility: visible;
     }
   .Hide {
-    visibility: hidden;
-  }`
+    display: none;
+  }
+
+  `
   
   const FooterText = styled(Link)`
+  justify-self: center;
+  align-self: flex-start;
     text-decoration: none;
     color: #313131;
     font-weight: 700;
+    font-size: 1.5rem;
   `
   const Head = styled.div`
     display: flex;
