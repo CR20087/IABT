@@ -21,8 +21,24 @@ def login_verify():
     has been registered.
     """
     data=request.get_json()
-    result=iabt_sql.login_verify(data['username'])
-    return jsonify(password=str(result[0]),role=str(result[1]),setup=str(result[2]))
+    response = make_response()
+    response = iabt_sql.login_verify(response,username=data['username'])
+
+    return response 
+
+
+@app.route("/Register",methods=['POST'])
+def login_verify():
+    """Register new account.
+    
+    Creates new user instance.
+    """
+    data=request.get_json()
+    response = make_response()
+    response = iabt_sql.register_account(response,username=data['userName'],password=data['password'], email=data['email'],
+                                         first_name=data['firstName'], lastname=['lastName'])
+
+    return response 
 
 
 
