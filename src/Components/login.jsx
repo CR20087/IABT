@@ -3,13 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import Loading from "./Loading";
 import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
 
 function LoginForm() {
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
     const [userName, setUserName] = useState()
     const [password, setPassword] = useState()
     const [isAuthorised, setIsAuthorised] = useState("")
@@ -18,10 +16,7 @@ function LoginForm() {
       
       //Function is executed on a login attempt
 
-      setIsLoading(true)
-
-
-      const res = await fetch('https://IABT.azurewebsites.net/login', {
+      const res = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +64,6 @@ function LoginForm() {
 
         setIsAuthorised('border-red')
       }
-      setIsLoading(false)
     }
 
     
@@ -101,7 +95,6 @@ function LoginForm() {
           </div>
           <button type="submit">Sign in</button>
           <FooterText to={"/Register"}>Not Registered? Create an Account</FooterText>
-          <div className="loading">{isLoading ? <Loading className="Show"/> : <Loading className="Hide"/> }</div>
         </Window>      
     )  
   }
@@ -138,7 +131,7 @@ function LoginForm() {
       border: 3px solid black;
       width: 15rem;
       height: 3rem;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
      }
     .border-red {
@@ -164,13 +157,6 @@ function LoginForm() {
         color: #eedede;
       }
     }
-  .Show {
-      visibility: visible;
-    }
-  .Hide {
-    display: none;
-  }
-
   `
   
   const FooterText = styled(Link)`

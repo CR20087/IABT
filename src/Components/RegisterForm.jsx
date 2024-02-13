@@ -88,8 +88,19 @@ function RegisterForm() {
   }
   
 
-  function FetchRegister(e) {
-    console.log(e)
+  async function FetchRegister(e) {
+    const res = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: `'${}'`,
+
+      }),
+    });
+
+    const data = await res.json() //Returns hashed password
   }
 
   return (
@@ -194,7 +205,7 @@ input {
   border: 1.5px solid green;
 }}
 button {
-  margin-top: 2rem;
+  margin: 2rem 0rem 3rem 0rem;
   align-self: center;
   width: 15rem;
   height: 3rem;
