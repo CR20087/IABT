@@ -28,7 +28,7 @@ def login_verify():
 
 
 @app.route("/Register",methods=['POST'])
-def login_verify():
+def register_account():
     """Register new account.
     
     Creates new user instance.
