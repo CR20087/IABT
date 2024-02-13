@@ -1,7 +1,6 @@
 from flask import Flask,jsonify,render_template,request,make_response
-from Flask import iabt_sql
+from src.Flask import iabt_sql
 from src.Flask import Password_Reset
-
 from dotenv import load_dotenv
 
 
