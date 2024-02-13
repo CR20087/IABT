@@ -40,7 +40,16 @@ def register_account():
 
     return response 
 
+@app.route("/test/<variable>}",methods=['GET'])
+def test(variable):
+    """Register new account.
+    
+    Creates new user instance.
+    """
+    response = make_response()
+    response.data = jsonify(res=variable)
 
+    return response 
 
 if __name__ == "__main__":
     app.run(debug=True)
