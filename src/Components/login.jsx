@@ -109,9 +109,8 @@ function LoginForm() {
   //Styling
 
   const Window = styled.form`
-    justify-self: center;
     display: grid;
-    justify-content: center;
+
     align-items: end;
     justify-items: center;
     color: #313131;
@@ -131,15 +130,15 @@ function LoginForm() {
     h6 {
       margin: 0rem 0rem 0rem 3rem;
       color: red;
-      font-size: 2rem;
+      font-size: 15px;
     }
      input {
       padding: 0rem 0rem 0rem 2rem;
       border-radius:3rem;
-      border: 5px solid black;
-      width: 50rem;
-      height: 7rem;
-      font-size: 4rem;
+      border: 3px solid black;
+      width: 15rem;
+      height: 3rem;
+      font-size: 2rem;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
      }
     .border-red {
@@ -152,13 +151,13 @@ function LoginForm() {
     }}
     button {
       align-self: center;
-      width: 50rem;
-      height: 7rem;
+      width: 15rem;
+      height: 3rem;
       border: 2px solid #2580c7;
       border-radius: 3rem;
       background: #2580c7;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      font-size: 3rem;
+      font-size: 30px;
       color: #ffffff;
       :hover :active {
         background: #313131;
@@ -179,14 +178,13 @@ function LoginForm() {
   align-self: flex-start;
     text-decoration: none;
     color: #313131;
-    font-weight: 700;
-    font-size: 1.5rem;
+    font-weight: 500;
+    font-size: 15px;
   `
   const Head = styled.div`
     display: flex;
     img {
-      width:100%;
-      height: 100%;
+      height: 300px;
     }
   `
   export default LoginForm
