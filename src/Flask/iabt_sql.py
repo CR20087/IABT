@@ -45,11 +45,11 @@ def register_account(response, **kwargs):
                     ,[email]
                     ,[password]
                     VALUES
-                    ({kwargs['username']},
-                    {kwargs['firstname']},
-                    {kwargs['lastname']},
-                    {kwargs['email']},
-                    {kwargs['password']})
+                    ('{kwargs['username']}',
+                    '{kwargs['first_name']}',
+                    '{kwargs['last_name']}',
+                    '{kwargs['email']}',
+                    '{kwargs['password']}')
                     """)
         cur.commit()
         cur.close()

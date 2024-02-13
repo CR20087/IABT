@@ -27,7 +27,7 @@ def login_verify():
     return response 
 
 
-@app.route("/Register",methods=['POST'])
+@app.route("/register",methods=['POST'])
 def register_account():
     """Register new account.
     
@@ -36,7 +36,7 @@ def register_account():
     data=request.get_json()
     response = make_response()
     response = iabt_sql.register_account(response,username=data['userName'],password=data['password'], email=data['email'],
-                                         first_name=data['firstName'], lastname=['lastName'])
+                                         first_name=data['firstName'], last_name=['lastName'])
 
     return response 
 
