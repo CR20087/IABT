@@ -28,16 +28,16 @@ def login_verify(**kwargs):
         result = cur.fetchone()
         if result[0]:
             cur.close()
-            return jsonify(password=result[0]), 200
+            return jsonify(data=[{'password': result[0]}]), 200
         else:
             cur.close()
-            return None, 400
+            return jsonify(data=None), 400
     except Exception as e:
-        return jsonify(error=3), 500
+        return jsonify(error=e), 501
 
 
 def register_account(**kwargs):
-    """Used during regsiter process to register a new account"""
+    """Used during register process to register a new account"""
     cur = init()
     try:
         cur.execute(f"""Insert into users(
@@ -55,7 +55,7 @@ def register_account(**kwargs):
                     """)
         cur.commit()
         cur.close()
-        return None, 200
+        return jsonify(data=None), 200
     except Exception as e:
         cur.close()
-        return jsonify(error=e), 500
+        return jsonify(error=e), 501

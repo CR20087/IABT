@@ -21,7 +21,7 @@ def login_verify():
     has been registered.
     """
     data = request.get_json()
-    response = iabt_sql.login_verify(username=data['username'])
+    response, status = iabt_sql.login_verify(username=data['username'])
 
     return response
 
@@ -32,11 +32,13 @@ def register_account():
     
     Creates new user instance.
     """
+    print('1')
     data = request.get_json()
+    print('2')
     response, status = iabt_sql.register_account(username=data['userName'], password=data['password'],
                                          email=data['email'],
                                          first_name=data['firstName'], last_name=['lastName'])
-
+    print('3')
     return response, status
 
 
