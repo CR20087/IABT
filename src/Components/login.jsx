@@ -35,7 +35,7 @@ function LoginForm() {
 
           //If the authentication was successful
 
-          const res = await fetch(`https://cpa-flask.azurewebsites.net/auth/add`,{
+          const res = await fetch(`https://iabt.azurewebsites.net/login`,{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

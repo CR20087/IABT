@@ -89,18 +89,25 @@ function RegisterForm() {
   
 
   async function FetchRegister(e) {
-    const res = await fetch('/login', {
+    const res = await fetch('https://iabt.azurewebsites.net/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: `'${}'`,
-
+        username: inputValues['userName'],
+        password: inputValues['password'],
+        email: inputValues['email'],
+        firstName: inputValues['firstName'],
+        lastName: inputValues['lastName']
       }),
     });
 
-    const data = await res.json() //Returns hashed password
+    const data = await res.json()
+
+  if (data.status_code !== 200) {
+    window.alert(`Server responded with status code\n${data.status_code}, ${data['error']}`)
+  }
   }
 
   return (
