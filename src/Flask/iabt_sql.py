@@ -1,42 +1,44 @@
-import pyodbc 
+import pyodbc
 from dotenv import load_dotenv
 import os
 from flask import jsonify
 
+
 def init():
-    """Inizializes connection to SQL Server"""
+    """Initializes connection to SQL Server"""
     load_dotenv()
-    database='IABT'
-    server=os.getenv('IABT_SQL_USERNAME')
-    username=os.getenv('IABT_SQL_USERNAME')
-    password=os.getenv('IABT_SQL_PASSWORD')
-    driver='{ODBC Driver 18 for SQL Server}'        
-    conn=pyodbc.connect('DRIVER='+driver+';SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+password)
-    cur=conn.cursor()
+    database = 'IABT'
+    server = os.getenv('IABT_SQL_USERNAME')
+    username = os.getenv('IABT_SQL_USERNAME')
+    password = os.getenv('IABT_SQL_PASSWORD')
+    driver = '{ODBC Driver 18 for SQL Server}'
+    conn = pyodbc.connect(
+        'DRIVER=' + driver + ';SERVER=' + server + ';DATABASE=' + database + ';ENCRYPT=yes;UID=' + username + ';PWD=' + password)
+    cur = conn.cursor()
     return cur
 
-# Functions designed for each specific route to exeecute data actions
+def login_verify(**kwargs):
+    """Used to grab hashed password from database for a username."""
+    cur = init()
+    try:
+        cur.execute(f"""SELECT password FROM users 
+                    WHERE username = {kwargs['username']}
+                    COLLATE Latin1_General_CS_AS
+                    """)
+        result = cur.fetchone()
+        if result[0]:
+            cur.close()
+            return jsonify(password=result[0]), 200
+        else:
+            cur.close()
+            return None, 400
+    except Exception as e:
+        return jsonify(error=3), 500
 
-def login_verify(response, **kwargs):
-    """Used to grab hashed password from database for a login username."""
-    cur=init()
-    cur.execute(f"""SELECT password FROM login 
-                WHERE username = {kwargs['username']}
-                COLLATE Latin1_General_CS_AS
-                """)
-    result=cur.fetchone()
-    if [result[0]]:
-        cur.close()
-        response.status_code = 200
-        response.data = jsonify(password=result[0])
-    else:
-        cur.close()
-        response.status_code = 400
-    return response
 
-def register_account(response, **kwargs):
-    """Used during regsiter process to register a new employee account"""
-    cur=init()
+def register_account(**kwargs):
+    """Used during regsiter process to register a new account"""
+    cur = init()
     try:
         cur.execute(f"""Insert into users(
                     [username]
@@ -53,10 +55,7 @@ def register_account(response, **kwargs):
                     """)
         cur.commit()
         cur.close()
-        response.status_code =200
+        return None, 200
     except Exception as e:
         cur.close()
-        response.status_code = 400
-        response.data = jsonify(error=e)
-    return response
-
+        return jsonify(error=e), 500
