@@ -13,7 +13,7 @@ def init():
     password = os.getenv('IABT_SQL_PASSWORD')
     driver = '{ODBC Driver 18 for SQL Server}'
     conn = pyodbc.connect(
-        'DRIVER=' + driver + ';SERVER=' + server + ';DATABASE=' + database + ';ENCRYPT=yes;UID=' + username + ';PWD=' + password)
+        'DRIVER=' + driver + ';SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password + 'TrustServerCertificate=yes')
     cur = conn.cursor()
     return cur
 
