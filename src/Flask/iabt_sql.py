@@ -8,7 +8,7 @@ def init():
     """Initializes connection to SQL Server"""
     load_dotenv()
     database = 'IABT'
-    server = os.getenv('IABT_SQL_USERNAME')
+    server = os.getenv('IABT_SQL_SERVER_NAME')
     username = os.getenv('IABT_SQL_USERNAME')
     password = os.getenv('IABT_SQL_PASSWORD')
     driver = '{ODBC Driver 18 for SQL Server}'
@@ -38,7 +38,9 @@ def login_verify(**kwargs):
 
 def register_account(**kwargs):
     """Used during register process to register a new account"""
+    print("i1")
     cur = init()
+    print("i2")
     try:
         cur.execute(f"""Insert into users(
                     [username]
@@ -55,6 +57,7 @@ def register_account(**kwargs):
                     """)
         cur.commit()
         cur.close()
+        print("i3")
         return jsonify(data=None), 200
     except Exception as e:
         cur.close()

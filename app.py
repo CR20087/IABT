@@ -1,6 +1,5 @@
-from flask import Flask, jsonify, render_template, request, make_response
+from flask import Flask, render_template, request
 from src.Flask import iabt_sql
-from src.Flask import Password_Reset
 
 # Flask App configuration
 app = Flask(__name__, template_folder='src/Flask/templates')
@@ -23,7 +22,7 @@ def login_verify():
     data = request.get_json()
     response, status = iabt_sql.login_verify(username=data['username'])
 
-    return response
+    return response, status
 
 
 @app.route("/register", methods=['POST'])
