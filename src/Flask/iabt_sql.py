@@ -12,6 +12,7 @@ def init():
     cur = conn.cursor()
     return cur
 
+
 def login_verify(**kwargs):
     """Used to grab hashed password from database for a username."""
     cur = init()

@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
-from src.Flask import iabt_sql
 from flask_cors import CORS
+
+from src.Flask import iabt_sql
 
 # Flask App configuration
 app = Flask(__name__, template_folder='src/Flask/templates')
 CORS(app)
+
 
 # Routes
 @app.route('/')
@@ -36,11 +38,10 @@ def register_account():
     data = request.get_json()
     print('2')
     response, status = iabt_sql.register_account(username=data['userName'], password=data['password'],
-                                         email=data['email'],
-                                         first_name=data['firstName'], last_name=data['lastName'])
+                                                 email=data['email'],
+                                                 first_name=data['firstName'], last_name=data['lastName'])
     print('3')
     return response, status
-
 
 
 if __name__ == "__main__":
