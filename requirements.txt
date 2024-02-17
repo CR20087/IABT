@@ -3,3 +3,4 @@ pyodbc==5.1.0
 jsonify==0.5
 python-dotenv
 PyJWT==2.8.0
+Flask-CORS==4.0.0
