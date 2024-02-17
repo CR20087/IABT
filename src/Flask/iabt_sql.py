@@ -7,13 +7,8 @@ from flask import jsonify
 def init():
     """Initializes connection to SQL Server"""
     load_dotenv()
-    database = 'IABT'
-    server = os.getenv('IABT_SQL_SERVER_NAME')
-    username = os.getenv('IABT_SQL_USERNAME')
-    password = os.getenv('IABT_SQL_PASSWORD')
-    driver = '{ODBC Driver 18 for SQL Server}'
-    conn = pyodbc.connect(
-        'DRIVER=' + driver + ';SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password + 'TrustServerCertificate=yes')
+    conn_string = os.getenv('IABT_CONN_STRING')
+    conn = pyodbc.connect(conn_string)
     cur = conn.cursor()
     return cur
 
@@ -33,21 +28,21 @@ def login_verify(**kwargs):
             cur.close()
             return jsonify(data=None), 400
     except Exception as e:
-        return jsonify(error=e), 501
+        return jsonify(error=str(e)), 500
 
 
 def register_account(**kwargs):
     """Used during register process to register a new account"""
-    print("i1")
     cur = init()
-    print("i2")
+    print(kwargs)
+    print(kwargs['last_name'])
     try:
         cur.execute(f"""Insert into users(
-                    [username]
+                    [user_name]
                     ,[first_name]
                     ,[last_name]
                     ,[email]
-                    ,[password]
+                    ,[password] )
                     VALUES
                     ('{kwargs['username']}',
                     '{kwargs['first_name']}',
@@ -57,8 +52,7 @@ def register_account(**kwargs):
                     """)
         cur.commit()
         cur.close()
-        print("i3")
         return jsonify(data=None), 200
     except Exception as e:
         cur.close()
-        return jsonify(error=e), 501
+        return jsonify(error=str(e)), 400
