@@ -7,8 +7,7 @@ from flask import jsonify
 def init():
     """Initializes connection to SQL Server"""
     load_dotenv()
-    conn_string = os.getenv('IABT_CONN_STRING')
-    print(type(conn_string), conn_string)
+    conn_string = 'DRIVER={ODBC Driver 18 for SQL Server};SERVER=34.67.139.17;DATABASE=IABT;UID=sqlserver;PWD=}[~Aht#5MBvO^Jv1;TrustServerCertificate=yes'
     conn = pyodbc.connect(conn_string)
     cur = conn.cursor()
     return cur
