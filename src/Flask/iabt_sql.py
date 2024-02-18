@@ -8,6 +8,7 @@ def init():
     """Initializes connection to SQL Server"""
     load_dotenv()
     conn_string = os.getenv('IABT_CONN_STRING')
+    print(type(conn_string), conn_string)
     conn = pyodbc.connect(conn_string)
     cur = conn.cursor()
     return cur
